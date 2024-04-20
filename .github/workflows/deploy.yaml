@@ -26,3 +26,6 @@ jobs:
       run: |
         docker tag computervisionwithopencvbackend:latest edinsonuwu/computervisionwithopencvbackend:latest
         docker push edinsonuwu/computervisionwithopencvbackend:latest
+      
+    - name: Trigger Render Deployment
+      run: curl -X POST https://api.render.com/deploy/srv-cocptma0si5c73anfd60?key=8RK0N3u1LVc
