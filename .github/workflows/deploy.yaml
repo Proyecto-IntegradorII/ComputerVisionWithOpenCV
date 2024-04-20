@@ -1,0 +1,44 @@
+name: Automatic Test, Build, Deploy
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        sudo apt-get update && sudo apt-get install -y libgl1-mesa-glx 
+        pip install --upgrade pip setuptools
+        pip install numpy pytesseract opencv-contrib-python-headless Flask waitress
+        sudo apt-get update && sudo apt-get install -y tesseract-ocr
+
+    - name: Run tests
+      run: |
+        python test_main.py
+
+    - name: Build Docker image
+      run: docker build -t computervisionwithopencvbackend .
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker image
+      run: |
+        docker tag computervisionwithopencvbackend:latest edinsonuwu/computervisionwithopencvbackend:latest
+        docker push edinsonuwu/computervisionwithopencvbackend:latest
+      
+    - name: Trigger Render Deployment
+      run: curl -X POST https://api.render.com/deploy/srv-cocptma0si5c73anfd60?key=8RK0N3u1LVc
