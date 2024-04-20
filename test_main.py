@@ -10,7 +10,7 @@ class TestApp(unittest.TestCase):
     def test_hello_world(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data.decode('utf-8'), 'Hello, World!')
+        self.assertEqual(response.data.decode('utf-8'), 'This code has been tested before being deployed, and Render has deployed it automatically.')
 
     def test_get_characters_of_image(self):
         # This test assumes that you have a sample image file named "test_image.png"
