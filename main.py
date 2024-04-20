@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return 'This code has been tested before being deployed, and Render has deployed it automatically.'
 
 @app.route('/get_characters_of_image', methods=['POST'])
 def get_characters_of_image():
