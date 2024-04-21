@@ -19,6 +19,7 @@ jobs:
         pip install -r requirements.txt
         sudo apt-get update && sudo apt-get install -y libgl1-mesa-glx 
         pip install --upgrade pip setuptools
+        pip install flask-cors
         pip install numpy pytesseract opencv-contrib-python-headless Flask waitress
         sudo apt-get update && sudo apt-get install -y tesseract-ocr
 
