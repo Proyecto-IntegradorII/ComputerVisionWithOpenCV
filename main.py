@@ -3,8 +3,10 @@ from flask import Flask, request, jsonify
 import numpy as np
 import cv2
 from ocr import extract_text_from_image
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def hello_world():
